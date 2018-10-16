@@ -1,7 +1,7 @@
 import React from 'react';
 import PaperSheet from './papersheet';
 
-const GET_LOCATION = '{ pfchangs { name } }';
+const GET_RESTAURANTS = '{ restaurants_list { id name } }';
 
 class PaperBanner extends React.Component {
   constructor(props) {
@@ -13,11 +13,10 @@ class PaperBanner extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8888/graphql', {
+    fetch('/graphql', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',},
-      body: JSON.stringify({ query: GET_LOCATION }),
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({ query: GET_RESTAURANTS }),
     })
       .then(res => res.json())
       .then(res => console.log(res.data));
