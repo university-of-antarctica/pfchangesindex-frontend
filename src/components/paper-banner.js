@@ -1,7 +1,7 @@
 import React from 'react';
 import PaperSheet from './papersheet';
 
-const GET_RESTAURANTS = '{ restaurants_list { id name } }';
+const GET_RESTAURANTS = '{ restaurant { name, rating } }';
 
 class PaperBanner extends React.Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class PaperBanner extends React.Component {
     this.state = {
       headline: '',
       comment: '',
+      data: null,
     };
   }
 
@@ -19,15 +20,10 @@ class PaperBanner extends React.Component {
       body: JSON.stringify({ query: GET_RESTAURANTS }),
     })
       .then(res => res.json())
-      .then(res => console.log(res.data));
-    //
-    // fetch('https://1jzxrj179.lp.gql.zone/graphql', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ query: '{ posts { title } }' }),
-    // })
-    //   .then(res => res.json())
-    //   .then(res => console.log(res.data));
+      .then(res => {
+        this.setState({ data: res.data });
+        console.log(res.data);
+      });
   }
 
   render() {
